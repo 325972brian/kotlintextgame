@@ -103,7 +103,7 @@ fun main(args: Array<String>) {
                 var choosemummy = readLine()
                 if (choosemummy == "101") {
                     println(ANSI_GREEN + "That's correct, Michael will now help you")
-                    println(ANSI_RESET + "You picked up a card, try it on the door in another room")
+                    println(ANSI_RESET + "You picked up a card, talk to kennen...")
                     mummyBoss = false
                     player.inventory.add(card1)
                     card1Data = true
@@ -130,6 +130,7 @@ fun main(args: Array<String>) {
         }
 
 
+
         val userInput: List<String> = playerInput().split(delimiters = *charArrayOf(' ')).map { it.toUpperCase() }
 
         when (userInput.first()) {
@@ -145,6 +146,14 @@ fun main(args: Array<String>) {
         }
     }
 }
+fun repeatText1() {
+    println("\nThere are 3 doors one on your left, one on the right and one at the end of the hallway.")
+    println("Type 1 for the door on the left")
+    println("Type 2 for the door on the right")
+    println("Type 3 for the door at the end of the hallway")
+}
+
+
 
 fun playerInput(): String {
     var input: String? = null
