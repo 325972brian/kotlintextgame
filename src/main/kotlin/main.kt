@@ -25,38 +25,47 @@ fun main(args: Array<String>) {
     val fistWeaponItem = Loot("Fist", LootType.WEAPON)
 
     val cloth = Loot("Inmitate cloth", LootType.ARMOR)
-    val redPotion = Loot("Health Potion", LootType.POTION)
+    val bandAid = Loot("bandaid", LootType.POTION)
 
     // Collectible items
     val card1 = Loot("Card 1", LootType.KEY)
+    val code = Loot("Code", LootType.KEY)
 
     val brickItem = Weapon("Brick", 16)
     val brickItemItems = Loot("Brick", LootType.WEAPON)
 
     // World 2
-    val bloodOfdarkness = Weapon("Blood of darkness", 40)
-    val bloodOfdarknessItem = Loot("Blood of darkness", LootType.WEAPON)
+    val policeBaton = Weapon("Police Baton", 40)
+    val policeBatonitem = Loot("Police Baton", LootType.WEAPON)
 
-    val holyBlood = Loot("Holy Blood", LootType.ARTIFACT)
-    val holyWater = Loot("Holy Water", LootType.ARTIFACT)
+    val prisonerDocument = Loot("Prisoner Document", LootType.ARTIFACT)
+    val officerWatch = Loot("Officer Watch", LootType.ARTIFACT)
 
-    val key2 = Loot("Key 2", LootType.KEY)
+    val key = Loot("Key", LootType.KEY)
+
+
 
 
     // Begin Items
     player.inventory.add(cloth)
     player.weapon = fistWeapon
-    player.inventory.add(redPotion)
+    player.inventory.add(bandAid)
     player.inventory.add(fistWeaponItem)
 
     // Begin var
     var level1 = true
     var card1Data = false
-    var mummyBoss = true
+    var codeData = false
+    var Michael = true
+    var computer = true
     // World 2
     var level12 = true
     var level22 = true
     var level32 = true
+
+    // World 3
+    var level13 = true
+    var level23 = true
 
     // Enemies
     val zombie = James("James", 10, 1, 5)
@@ -65,6 +74,7 @@ fun main(args: Array<String>) {
     val guard1 = Enemy("Guard", 10, 1, 5)
     val guard2 = Enemy("Guard", 10,2, 4)
     val officer = Enemy("Officer", 18, 2, 4)
+    val officerCaptain = Enemy("Officer Captain", 19, 2, 5)
 
 
     // Game start
@@ -111,14 +121,14 @@ fun main(args: Array<String>) {
 
         fun level2() {
             println(ANSI_YELLOW + "Michael is willing to help escape if" + ANSI_RESET + "\n$username" + ANSI_YELLOW + " solves this math question...")
-            while (mummyBoss) {
+            while (Michael) {
                 println(ANSI_YELLOW + "To get Michael to help you have to solve this math question,")
                 println(ANSI_VIBRANT_YELLOW + "what is the answer to: 56+14+31")
                 var choosemummy = readLine()
                 if (choosemummy == "101") {
                     println(ANSI_GREEN + "That's correct, Michael will now help you")
                     println(ANSI_RESET + "You picked up a card, talk to kennen...")
-                    mummyBoss = false
+                    Michael = false
                     player.inventory.add(card1)
                     card1Data = true
                     println("Press enter to leave the room")
@@ -172,13 +182,13 @@ fun main(args: Array<String>) {
 
 //world 2
 
-    println("There is a foul smell down here in the basement, this time there are three rooms.\nOne in front of you which reeks of blood.\nOne right of you, it looks like a torture chamber.")
-    println("And one left of you, it smells like hell.") // fix text
-    println("\nType 1 for the door on the left.\nType 2 for the door on the right. \nType 3 for the door in front of you.")
+    println("You're out your jail cell, the guards seem to be not wary.Find the key to the exit. You got 3 options.\nGo upstairs and pickpocket the guard.\nGo downstairs, and fight the other guard.")
+    println("Or fight the officer in his office on your floor") // fix text
+    println("\nType 1 to go upstairs.\nType 2 to go downstairs. \nType 3 to enter the office.")
     while (world == 2) {
 
         fun level12() {
-            println("You see an skeleton, prepare to fight.")
+            println("You see a guard, prepare to fight.")
             println("Type in 1 to fight.")
             while (level12) {
                 var fight = readLine()
@@ -186,10 +196,10 @@ fun main(args: Array<String>) {
                     guard1.takeDamage(player.weapon.damageInflicted)
                     if (guard1.lives < 1) {
                         println("The guard is defeated by $username.")
-                        println(ANSI_GREEN + "Hmmm what is this " + ANSI_CYAN + "$username" + ANSI_GREEN + " took the red glowing sword " + ANSI_RED + "'Blood of darkness'" + ANSI_RESET)
-                        println(ANSI_CYAN + "An demon weapon against demons this might work." + ANSI_RESET)
-                        player.weapon = bloodOfdarkness
-                        player.inventory.add(bloodOfdarknessItem)
+                        println(ANSI_GREEN + "Hmmm what is this " + ANSI_CYAN + "$username" + ANSI_GREEN + " took the baton " + ANSI_RED + "'Police baton'" + ANSI_RESET)
+                        println(ANSI_CYAN + "With this, it will be easier to fight stronger guards..." + ANSI_RESET)
+                        player.weapon = policeBaton
+                        player.inventory.add(policeBatonitem)
                         println("Press enter to leave the room")
                         readLine()
 
@@ -206,9 +216,9 @@ fun main(args: Array<String>) {
 
         fun level22() {
             println(
-                "There is an human in the room $username looked closer " +
-                        ANSI_CYAN + "'By the gods what has " + ANSI_PURPLE + "Bladimir" + ANSI_CYAN + " done to him.'" + ANSI_RESET +
-                        "\nSuddenly the mutilated corpse woke up and came towards $username"
+                "There is a guard downstairs..." +
+                        ANSI_CYAN + "'Oh no, the" + ANSI_PURPLE + "buffed guard" + ANSI_CYAN + " is approaching you!'" + ANSI_RESET +
+                        "\nPrepare to fight! $username"
             )
             while (level22) {
                 var fight = readLine()
@@ -216,10 +226,10 @@ fun main(args: Array<String>) {
                     guard2.takeDamage(player.weapon.damageInflicted)
                     if (guard2.lives < 1) {
                         println("The guard is defeated by $username.")
-                        println(ANSI_CYAN + "$username" + ANSI_GREEN + " took the health potion'" + ANSI_RESET)
-                        println(ANSI_CYAN + "Dammit this can't be allowed to exist may the gods look over him, BLADMIR YOUR NEXT!!!!" + ANSI_RESET)
-                        println("$username left the room in anger")
-                        player.inventory.add(redPotion)
+                        println(ANSI_CYAN + "$username" + ANSI_GREEN + " took the bandaid'" + ANSI_RESET)
+                        println(ANSI_CYAN + "That was close..." + ANSI_RESET)
+                        println("$username left the room in fear")
+                        player.inventory.add(bandAid)
                         println("Press enter to leave the room")
                         readLine()
 
@@ -236,24 +246,24 @@ fun main(args: Array<String>) {
         }
 
         fun level32() {
-            println("It reeks of blood but somehow you feel a holy presence in the room. \nThere are two pedestals, one with Holy Water and one with Holy Blood.")
-            println("$username grabbed the Holy Blood.")
-            player.inventory.add(holyBlood)
+            println("The office is empty \nThere is a prisoner document and blood on the table.")
+            println("$username grabbed the prisoner document.")
+            player.inventory.add(prisonerDocument)
             println("Press enter to continue text")
             readLine()
-            println("Suddenly an angel appeared 'You dare take the Holy Blood of Hesus, are you worthy to take on evil?'\n'I SHALL TEST YOU MORTAL!!!'")
+            println("Suddenly the Officer appears behind you..!'You're not allowed to be here buddy.., *cracks knuckles*'\n'perhaps, I should teach you some discipline'")
             while (level32) {
                 var fight = readLine()
                 if (fight == "1") {
                     officer.takeDamage(player.weapon.damageInflicted)
                     if (officer.lives < 1) {
                         println("Officer is defeated by $username")
-                        println("Very well mortal I shall let you take the Holy water and the Holy blood but if you fail I will make you feel my wrath!")
-                        println("$username got the Holy Water")
-                        player.inventory.add(holyWater)
-                        println("\n$username found an key in the room he picked it up.\nSuddenly a trap door opened from below and he fell trough it.")
-                        player.inventory.add(key2)
-                        println("You're entering the 2nd floor.")
+                        println("If only I had my gun with me...")
+                        println("$username acquired the officers watch")
+                        player.inventory.add(officerWatch)
+                        println("\n$username found an key in the officers pocket, he picked it up.\nYou're heading towards the exit.")
+                        player.inventory.add(key)
+                        println("You're entering the officer lobby.")
                         println("Press enter to continue")
                         readLine()
 
@@ -271,7 +281,7 @@ fun main(args: Array<String>) {
         }
 
         fun repeatText2() {
-            println("\nType 1 for the door on the left.\nType 2 for the door on the right\nType 3 for the door in front of you")
+            println("\nType 1 to go upstairs.\nType 2 to go downstairs. \nType 3 to enter the office.")
         }
 
 
@@ -292,19 +302,67 @@ fun main(args: Array<String>) {
     }
 //////////// World 3 ////////////
     while (world == 3) {
-        println("END OF DEMO")
+        println("You're in the officer lobby, the exit is infront of you." + "Seems like it is" + ANSI_PURPLE + "locked by code and key" +ANSI_RESET)
+        println("The" + ANSI_RED + " guard captain" + " is near the exit")
+        println("You must retrieve the code from the exit before you fight the guard captain.")
+        println("\nType 1 to enter the police counter.\nType 2 to fight the officer captain")
+
+        fun level13() {
+            println(ANSI_YELLOW + "There is a laptop on the counter desk, it says" + ANSI_RESET + "\n$username" + ANSI_YELLOW + " has to solve this math question to get the code")
+            while (computer) {
+                println(ANSI_YELLOW + "Solve this math question")
+                println(ANSI_VIBRANT_YELLOW + "what is the answer to: 50+60")
+                var choosemummy = readLine()
+                if (choosemummy == "110") {
+                    println(ANSI_GREEN + "That's correct, the code is 110")
+                    println(ANSI_RESET + "You picked up a code paper, fight the guard...")
+                    computer = false
+                    player.inventory.add(code)
+                    codeData = true
+                    println("Press enter to leave the room")
+                    readLine()
+                } else {
+                    println(ANSI_RED + "Oh no! That's the wrong answer, try again")
+                }
+
+            }
+
+
+        }
+        fun level23() {
+            while (level23) {
+                if (codeData != true) {
+                    println("You must retrieve the code first.")
+                    println("Choose another option!")
+                } else {
+                    println("The guard captain is ready to fight you.\n'you're going right back in jail buddy!'")
+                    var fight = readLine()
+                    if (fight == "1") {
+                        officerCaptain.takeDamage(player.weapon.damageInflicted)
+                        if (officerCaptain.lives < 1) {
+                            println("You have defeated the guard captain and escaped prison! $username")
+                            println("Congratulations on finishing the game!")
+                            println("$username finished the game...!")
+                            level23 = false
+                        } else {
+                            player.takeDamage(officer.damageInflicted)
+                        }
+                    }
+
+                }
+            }
+        }
 
         fun repeatText3() {
-            println("Oeps no spoilers here (¬‿¬)")
+            println("\nType 1 to enter the police counter.\nType 2 to fight the officer captain")
         }
 
         val userInput: List<String> = playerInput().split(delimiters = *charArrayOf(' ')).map { it.toUpperCase() }
 
         when (userInput.first()) {
             "QUIT", "EXIT", "Q" -> System.exit(0)
-//            "1" -> level12()
-//            "2" -> level22()
-//            "3" -> level32()
+            "1" -> level13()
+            "2" -> level23()
             "HELP" -> showHelp()
             "INVENTORY", "INV" -> player.showInventory()
             "AGAIN" -> repeatText3()
@@ -313,7 +371,6 @@ fun main(args: Array<String>) {
             }
         }
     }
-
 }
 
 fun playerInput(): String {
